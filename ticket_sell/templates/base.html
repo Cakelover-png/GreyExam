@@ -6,8 +6,16 @@
 </head>
 
 <body>
+    {% if user.is_authenticated %}
+    <h5>Logged in as {{request.user.email}} </h5>
+    <form action="{% url 'user:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+    {% endif %}
     {% block content %}
     {% endblock %}
+
 </body>
 
 </html>

@@ -8,4 +8,36 @@ Details
 {% block content %}
 
 
+<form action="" method="get">
+            <input id="search_input" type="search" class="validate" name="q">
+             <button type="submit"> search </button>
+</form>
+
+<h5> Orders </h5>
+{% for order in orders %}
+        <p> Code: {{order.ticket.code}} </p>
+{% endfor %}
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if orders.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}&q={{request.GET.q}}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ orders.number }} of {{ orders.paginator.num_pages }}.
+        </span>
+
+        {% if orders.has_next %}
+            <a href="?page={{ orders.next_page_number }}&q={{request.GET.q}}">next</a>
+            <a href="?page={{ orders.paginator.num_pages }}&q={{request.GET.q}}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<a href="{% url 'ecommerce:home' %}">HOME</a>
+
+
 {% endblock %}
